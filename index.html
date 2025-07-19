@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invitación Especial</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet"/>
+  <style type="text/tailwindcss">
+    :root {
+      --primary-color: #e88c30;
+      --background-color: #f5f5f5;
+      --text-primary: #333333;
+      --text-secondary: #444444;
+      --accent-color: #f0e6d2;
+      --option-background: #ffffffc5;
+    }
+    body {
+      font-family: 'Noto Serif', serif;
+      min-height: max(884px, 100dvh);
+    }
+    .hidden { display: none; }
+    .overlay { @apply absolute inset-0 bg-black opacity-50; }
+    .button_primary { @apply bg-[var(--primary-color)] text-white px-8 py-3 rounded-full transition-all duration-300 ease-in-out; }
+    .button_primary:hover { @apply bg-[var(--accent-color)] text-[var(--text-primary)]; }
+    .option-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    }
+    .toast {
+      @apply absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-[var(--primary-color)] text-white text-sm py-2 px-4 rounded-full opacity-0 transition-opacity duration-300;
+    }
+    .toast.show { @apply opacity-100; }
+  </style>
+</head>
+<body class="bg-[var(--background-color)] text-[var(--text-primary)] transition-all duration-300 ease-in-out">
+
+  <!-- Pantalla 1: Portada -->
+  <section id="pantalla1" class="main_container relative flex items-center justify-center min-h-screen bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAX0EbzPh1_Y2Bt4OHdtA044y4hNREvDItYZxI9qrSPImIU0SWF1K5rVxy2S7TI1o533870soHRAXt1d495whhwuBpC2m61TP2JRP95pk_khpUDSGzMbrcHHWSDxUJZjXNtBSUp7Va04sHoTM1l64W_Z-U4tMWk7S6f7YQkAmADD17GGPflfO7oLDwOkfWr0ooGLv5oAq4guFaYa0wW8iIFqp_9P4He0DnB8YgQaQLwPOwboFpkjh408XHk3LdZVl5GDgHu4KLm_-fQ');">
+    <div class="overlay"></div>
+    <main class="relative z-10 flex flex-col items-center justify-center h-full p-4 text-center">
+      <h1 class="text-4xl font-bold text-white mb-4">¿Listo para una pequeña encuesta?</h1>
+      <p class="text-lg text-white mb-8">Queremos conocer tus preferencias.</p>
+      <button onclick="mostrarPantalla(2)" class="button_primary">Comenzar</button>
+    </main>
+  </section>
+
+ <!-- Pantalla 2: Opciones -->
+ <section id="pantalla2" class="hidden relative flex flex-col justify-center min-h-screen px-4 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAX0EbzPh1_Y2Bt4OHdtA044y4hNREvDItYZxI9qrSPImIU0SWF1K5rVxy2S7TI1o533870soHRAXt1d495whhwuBpC2m61TP2JRP95pk_khpUDSGzMbrcHHWSDxUJZjXNtBSUp7Va04sHoTM1l64W_Z-U4tMWk7S6f7YQkAmADD17GGPflfO7oLDwOkfWr0ooGLv5oAq4guFaYa0wW8iIFqp_9P4He0DnB8YgQaQLwPOwboFpkjh408XHk3LdZVl5GDgHu4KLm_-fQ');">
+  <div class="overlay"></div>
+  <div class="relative z-10 flex flex-col items-center text-center text-white">
+    <h3 class="text-2xl md:text-3xl font-medium mb-12">Para empezar, si pudieras teletransportarte a un lugar tranquilo ahora mismo, ¿cuál de estos elegirías?</h3>
+    <div class="flex flex-col gap-4 w-full max-w-md">
+      <button onclick="bloqueado(this)" class="option-card relative flex items-center gap-4 p-5 bg-[var(--option-background)] rounded-xl text-left">
+        📚 <span class="text-base font-medium text-[var(--text-primary)]">Un rincón de lectura con libros y luz natural</span>
+        <span class="bloqueo absolute top-1 right-1 hidden text-red-600 text-xl">❌</span>
+      </button>
+      <button onclick="bloqueado(this)" class="option-card relative flex items-center gap-4 p-5 bg-[var(--option-background)] rounded-xl text-left">
+        🔥 <span class="text-base font-medium text-[var(--text-primary)]">Un sillón cómodo junto a una chimenea</span>
+        <span class="bloqueo absolute top-1 right-1 hidden text-red-600 text-xl">❌</span>
+      </button>
+      <button onclick="mostrarPantalla(3)" class="option-card flex items-center gap-4 p-5 bg-[var(--option-background)] rounded-xl text-left">
+        ☕ <span class="text-base font-medium text-[var(--text-primary)]">Una cafetería a tomar un café y hablar</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+ <!-- Pantalla 3: Invitación -->
+ <section id="pantalla3" class="hidden flex items-center justify-center min-h-screen bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDpzdaqJRKGa3QNH81tL99jFp31Qs7boG__2Q4k2ScH2CyuM5aFD-92Mzk1LldE8KlW4EIeFwspwfJ_u6xNKPu4MiZ48UpUzFlhCRx0_szlG243c8HeJ7OK3YH_ewPEX3yHiQTRxVHu4wQHww7ug5VWr_5sMeZTM1Hhp9u5mNZMVx8DlGgw_glbpW6FbHX6oTtfi2qqacO09P3SMvVRU2ONU3Nv7x3vBR6DqVF180EG_m4SZKGydJ3GuMR75ffyKaBNQAdAcsp5zPE4');">
+  <div class="relative w-full max-w-md p-8 text-center text-white bg-black bg-opacity-60 rounded-lg">
+    <p class="text-sm">¡Gracias por participar en nuestra encuesta! Parece que encontramos la combinación perfecta para un momento ideal...</p>
+    <p class="text-lg font-bold mt-4">Y el resultado es una invitación muy especial:</p>
+    <h1 class="text-4xl font-bold text-[var(--primary-color)] drop-shadow-lg mt-4">¿Te tomarías un café conmigo?</h1>
+    <p class="text-base mt-4">Me encantaría compartir ese momento contigo.</p>
+    <div class="flex flex-col gap-4 mt-6">
+      <button class="button_primary" onclick="aceptarInvitacion()">¡Me encantaría!</button>
+      <button class="button_primary bg-red-600 hover:bg-red-700" onclick="rechazarInvitacion()">No quiero</button>
+      <span id="rechazoX" class="text-3xl text-red-500 hidden">❌</span>
+    </div>
+  </div>
+  <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none hidden"></canvas>
+</section>
+
+<!-- Mensaje toast -->
+<div class="toast" id="toast">¡Perfecto!</div>
+
+<!-- Sonidos -->
+<audio id="confetti-sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_92b55c7637.mp3"></audio>
+<audio id="error-sound" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_0f7c8db5b5.mp3"></audio>
+
+<!-- Script final -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+  function mostrarPantalla(numero) {
+    document.getElementById('pantalla1').classList.add('hidden');
+    document.getElementById('pantalla2').classList.add('hidden');
+    document.getElementById('pantalla3').classList.add('hidden');
+    document.getElementById('pantalla' + numero).classList.remove('hidden');
+  }
+
+  function bloqueado(btn) {
+    const xMark = btn.querySelector('.bloqueo');
+    xMark.classList.remove('hidden');
+    document.getElementById('error-sound').play();
+    setTimeout(() => { xMark.classList.add('hidden'); }, 1500);
+  }
+
+  function rechazarInvitacion() {
+    const rechazo = document.getElementById('rechazoX');
+    rechazo.classList.remove('hidden');
+    document.getElementById('error-sound').play();
+    setTimeout(() => { rechazo.classList.add('hidden'); }, 1500);
+  }
+
+  function aceptarInvitacion() {
+    const canvas = document.getElementById('confetti-canvas');
+    canvas.classList.remove('hidden');
+    const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
+    myConfetti({
+      particleCount: 200,
+      spread: 180,
+      origin: { x: 0.5, y: 0.5 }
+    });
+    document.getElementById('confetti-sound').play();
+    const toast = document.getElementById("toast");
+    toast.textContent = "¡Perfecto! ¡Acertaste!";
+    toast.classList.add("show");
+    setTimeout(() => { toast.classList.remove("show"); }, 4000);
+  }
+</script>
+
+</body>
+</html>
